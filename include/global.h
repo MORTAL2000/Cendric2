@@ -79,7 +79,7 @@ extern const sf::Color COLOR_BAD;
 
 extern const sf::Color COLOR_DAMAGED;
 extern const sf::Color COLOR_HEALED;
-extern const sf::Color COLOR_LOOTABLE;
+extern const sf::Color COLOR_INTERACTIVE;
 
 extern const sf::Color COLOR_LIGHT_GREY;
 extern const sf::Color COLOR_MEDIUM_GREY;
@@ -88,6 +88,8 @@ extern const sf::Color COLOR_DARK_GREY;
 extern const sf::Color COLOR_PURPLE;
 extern const sf::Color COLOR_DARK_PURPLE;
 extern const sf::Color COLOR_LIGHT_PURPLE;
+extern const sf::Color COLOR_LIGHT_BROWN;
+extern const sf::Color COLOR_DARK_BROWN;
 
 extern const sf::Color COLOR_ELEMENTAL;
 extern const sf::Color COLOR_TWILIGHT;

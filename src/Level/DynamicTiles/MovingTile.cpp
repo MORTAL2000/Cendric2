@@ -1,12 +1,12 @@
 #include "Level/DynamicTiles/MovingTile.h"
-#include "Spell.h"
+#include "Spells/Spell.h"
 #include "Registrar.h"
 
 REGISTER_LEVEL_DYNAMIC_TILE(LevelDynamicTileID::Moving, MovingTile)
 
-MovingTile::MovingTile(Level* level) :
-    LevelDynamicTile(level),
-	LevelMovableTile(level) {
+MovingTile::MovingTile(LevelScreen* levelScreen) :
+    LevelDynamicTile(levelScreen),
+	LevelMovableTile(levelScreen) {
 	m_movingParent = this; 
 	m_relativeVelocity.x = 0.f;
 	m_relativeVelocity.y = 0.f;

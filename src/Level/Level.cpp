@@ -1,5 +1,5 @@
 #include "Level/Level.h"
-#include "Screen.h"
+#include "Screens/LevelScreen.h"
 #include "Level/DynamicTiles/MovingTile.h"
 
 using namespace std;
@@ -32,10 +32,10 @@ void Level::dispose() {
 	g_resourceManager->deleteLevelResources();
 }
 
-void Level::loadAfterMainChar(Screen* screen) {
+void Level::loadAfterMainChar(WorldScreen* screen) {
 	LevelLoader loader;
 	m_screen = screen;
-	loader.loadAfterMainChar(m_levelData, screen, this);
+	loader.loadAfterMainChar(m_levelData, dynamic_cast<LevelScreen*>(screen), this);
 }
 
 bool Level::load(const std::string& id) {
@@ -54,10 +54,10 @@ bool Level::load(const std::string& id) {
 	return true;
 }
 
-void Level::loadForRenderTexture(Screen* screen) {
+void Level::loadForRenderTexture(WorldScreen* screen) {
 	LevelLoader loader;
-	loader.loadDynamicTiles(m_levelData, screen, this);
-	loader.loadLights(m_levelData, screen);
+	loader.loadDynamicTiles(m_levelData, dynamic_cast<LevelScreen*>(screen));
+	loader.loadLights(m_levelData, dynamic_cast<LevelScreen*>(screen));
 	m_dynamicTiles = screen->getObjects(GameObjectType::_DynamicTile);
 	m_movableTiles = screen->getObjects(GameObjectType::_MovableTile);
 }
@@ -177,6 +177,14 @@ bool Level::collidesWithMovableTiles(WorldCollisionQueryRecord& rec) const {
 		LevelDynamicTile* tile = dynamic_cast<LevelDynamicTile*>(it);
 		const sf::FloatRect& tileBB = *tile->getBoundingBox();
 		if (tile->getIsCollidable() && epsIntersect(tileBB, rec.boundingBox)) {
+			return true;
+		}
+	}
+	for (auto& it : *m_dynamicTiles) {
+		LevelDynamicTile* tile = dynamic_cast<LevelDynamicTile*>(it);
+		if (tile->getDynamicTileID() != LevelDynamicTileID::Falling) continue;
+		const sf::FloatRect& tileBB = *tile->getBoundingBox();
+		if (epsIntersect(tileBB, rec.boundingBox)) {
 			return true;
 		}
 	}

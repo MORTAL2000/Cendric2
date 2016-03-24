@@ -1,7 +1,7 @@
 #include "ObjectFactory.h"
 
 #include "Level/Enemy.h"
-#include "Spell.h"
+#include "Spells/Spell.h"
 #include "Level/LevelDynamicTile.h"
 #include "Map/MapDynamicTile.h"
 
@@ -27,11 +27,11 @@ void ObjectFactory::registerLevelDynamicTile(LevelDynamicTileID id, LevelDynamic
 	levelDynamicTileRegistry.insert({ id, constructor });
 }
 
-LevelDynamicTile* ObjectFactory::createLevelDynamicTile(LevelDynamicTileID id, Level* level) {
+LevelDynamicTile* ObjectFactory::createLevelDynamicTile(LevelDynamicTileID id, LevelScreen* levelScreen) {
 	LevelDynamicTile* instance = nullptr;
 	const auto& it = levelDynamicTileRegistry.find(id);
 	if (it != levelDynamicTileRegistry.end()) {
-		instance = it->second(level);
+		instance = it->second(levelScreen);
 	}
 	return instance;
 }
@@ -40,11 +40,11 @@ void ObjectFactory::registerMapDynamicTile(MapDynamicTileID id, MapDynamicTileCo
 	mapDynamicTileRegistry.insert({ id, constructor });
 }
 
-MapDynamicTile* ObjectFactory::createMapDynamicTile(MapDynamicTileID id, Map* map) {
+MapDynamicTile* ObjectFactory::createMapDynamicTile(MapDynamicTileID id, MapScreen* mapScreen) {
 	MapDynamicTile* instance = nullptr;
 	const auto& it = mapDynamicTileRegistry.find(id);
 	if (it != mapDynamicTileRegistry.end()) {
-		instance = it->second(map);
+		instance = it->second(mapScreen);
 	}
 	return instance;
 }

@@ -1,14 +1,13 @@
 #include "Level/DynamicTiles/ShiftableTile.h"
-#include "Spell.h"
+#include "Spells/Spell.h"
 #include "Spells/WindGustSpell.h"
 #include "Registrar.h"
 
 REGISTER_LEVEL_DYNAMIC_TILE(LevelDynamicTileID::Shiftable, ShiftableTile)
 
-ShiftableTile::ShiftableTile(Level* level) : 
-	LevelDynamicTile(level),
-	LevelMovableTile(level)
-{
+ShiftableTile::ShiftableTile(LevelScreen* levelScreen) :
+	LevelDynamicTile(levelScreen),
+	LevelMovableTile(levelScreen) {
 }
 
 void ShiftableTile::init() {
